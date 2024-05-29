@@ -1,12 +1,132 @@
+import { Task } from '../../types/task';
+import { FaCheck } from 'react-icons/fa';
+
+interface TodayTaskProps {
+  taskName: string;
+  taskDesc: string;
+  taskType: string;
+  time?: number;
+  spentTime: number;
+  day: string;
+  done: boolean;
+}
+
 const TodayTasks = () => {
-  // const tasks = [
-  //   {
-  //     id: 'a',
-  //   },
-  // ];
+  let tasks: Task[] = [
+    {
+      id: 'a',
+      taskName: 'Coding Test Practice',
+      taskDesc: 'Leetcode',
+      taskType: 'web',
+      data: 'leetcode.com',
+      date: '2024-05-28',
+      time: 30,
+      spentTime: 0,
+      day: 'DAILY',
+      done: false,
+    },
+    {
+      id: 'b',
+      taskName: 'Job Searching',
+      taskDesc: 'LinkedIn',
+      taskType: 'web',
+      data: 'linkedin.com',
+      date: '2024-05-28',
+      time: 300,
+      spentTime: 150,
+      day: 'DAILY',
+      done: false,
+    },
+    {
+      id: 'c',
+      taskName: 'Coding',
+      taskDesc: 'Github Contribution',
+      taskType: 'custom',
+      date: '2024-05-28',
+      day: 'DAILY',
+      spentTime: 0,
+      done: true,
+    },
+    {
+      id: 'd',
+      taskName: 'ExerciseExerciseExerciseExerciseExerciseExerciseExercise',
+      taskDesc:
+        'For healthFor healthFor healthFor healthFor healthFor healthFor healthFor health',
+      taskType: 'custom',
+      date: '2024-05-28',
+      day: 'DAILY',
+      spentTime: 0,
+      done: false,
+    },
+  ];
+  tasks = tasks.concat(
+    tasks.map((task, taskIdx) => ({
+      ...task,
+      id: `${task.id}${taskIdx}`,
+    }))
+  );
+
   return (
-    <div className="bg-base-content text-base-300 p-4 rounded-lg">
-      TodayTasks
+    <>
+      <h1 className="uppercase text-xl mb-2">Today Tasks</h1>
+      <div className="flex flex-wrap gap-4 p-4">
+        {tasks.map((task) => (
+          <TodayTask
+            taskName={task.taskName}
+            taskDesc={task.taskDesc}
+            taskType={task.taskType}
+            time={task.time}
+            spentTime={task.spentTime}
+            day={task.day}
+            done={task.done}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
+const TodayTask = ({
+  taskName,
+  taskDesc,
+  taskType,
+  time,
+  spentTime,
+  day,
+  done,
+}: TodayTaskProps) => {
+  return (
+    <div className="flex flex-col gap-2 p-4 bg-neutral rounded-lg w-64">
+      <h2 className="text-lg line-clamp-2 break-words">{taskName}</h2>
+      <p className="text-sm px-1 line-clamp-2 break-words">{taskDesc}</p>
+      <div className="flex-1 flex flex-col justify-end gap-2">
+        <div className="flex gap-1 mb-2">
+          <div className="badge badge-ghost uppercase">{taskType}</div>
+          <div className="badge badge-outline uppercase">{day}</div>
+        </div>
+        {/* TIME */}
+        {time !== undefined && (
+          <div className="flex flex-col gap-1 items-center">
+            <progress
+              className="progress progress-success w-56"
+              value={spentTime}
+              max={time}
+            ></progress>
+            <span>{`${spentTime}/${time}m`}</span>
+          </div>
+        )}
+        {/* ONCE */}
+        {time === undefined && (
+          <div className="flex justify-center">
+            <button
+              className={`btn btn-sm w-full ${done ? 'btn-success' : ''}`}
+            >
+              <FaCheck />
+              Done
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
