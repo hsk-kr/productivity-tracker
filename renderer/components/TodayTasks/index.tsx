@@ -67,9 +67,9 @@ const TodayTasks = () => {
   );
 
   return (
-    <>
-      <h1 className="uppercase text-xl mb-2">Today Tasks</h1>
-      <div className="flex flex-wrap gap-4 p-4">
+    <div>
+      <h1 className="uppercase text-xl mb-2 font-bold">Today Tasks</h1>
+      <div className="flex flex-wrap gap-4 p-2">
         {tasks.map((task) => (
           <TodayTask
             taskName={task.taskName}
@@ -82,7 +82,7 @@ const TodayTasks = () => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -96,10 +96,14 @@ const TodayTask = ({
   done,
 }: TodayTaskProps) => {
   return (
-    <div className="flex flex-col gap-2 p-4 bg-neutral rounded-lg w-64">
-      <h2 className="text-lg line-clamp-2 break-words">{taskName}</h2>
-      <p className="text-sm px-1 line-clamp-2 break-words">{taskDesc}</p>
-      <div className="flex-1 flex flex-col justify-end gap-2">
+    <div className="flex flex-col gap-1 p-4 bg-neutral rounded-lg w-48">
+      <h2 className="text-lg line-clamp-2 break-words leading-tight font-bold">
+        {taskName}
+      </h2>
+      <p className="text-sm px-1 line-clamp-2 break-words leading-tight">
+        {taskDesc}
+      </p>
+      <div className="flex-1 flex flex-col justify-end gap-1">
         <div className="flex gap-1 mb-2">
           <div className="badge badge-ghost uppercase">{taskType}</div>
           <div className="badge badge-outline uppercase">{day}</div>
@@ -108,7 +112,7 @@ const TodayTask = ({
         {time !== undefined && (
           <div className="flex flex-col gap-1 items-center">
             <progress
-              className="progress progress-success w-56"
+              className="progress progress-success w-full"
               value={spentTime}
               max={time}
             ></progress>
