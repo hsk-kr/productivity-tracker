@@ -1,10 +1,9 @@
-import React from 'react';
 import Head from 'next/head';
 import GoogleSignIn from '../components/GoogleSignIn';
 
 export default function SignInPage() {
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Productivity Tracker - Sign In</title>
       </Head>
@@ -19,6 +18,6 @@ export default function SignInPage() {
           <GoogleSignIn />
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
