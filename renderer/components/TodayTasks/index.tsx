@@ -67,9 +67,14 @@ const TodayTasks = () => {
   );
 
   return (
-    <div>
-      <h1 className="uppercase text-xl mb-2 font-bold">Today Tasks</h1>
-      <div className="flex flex-wrap gap-4 p-2">
+    <div className="flex flex-col gap-2">
+      <h1 className="uppercase text-xl font-bold">Today Tasks</h1>
+      <progress
+        className="progress progress-accent w-56 h-4"
+        value={80}
+        max="100"
+      ></progress>
+      <div className="flex flex-wrap gap-4">
         {tasks.map((task) => (
           <TodayTask
             taskName={task.taskName}
@@ -103,10 +108,10 @@ const TodayTask = ({
       <p className="text-sm px-1 line-clamp-2 break-words leading-tight">
         {taskDesc}
       </p>
-      <div className="flex-1 flex flex-col justify-end gap-1">
-        <div className="flex gap-1 mb-2">
-          <div className="badge badge-ghost uppercase">{taskType}</div>
-          <div className="badge badge-outline uppercase">{day}</div>
+      <div className="flex-1 flex flex-col justify-end gap-1 mt-1">
+        <div className="flex gap-1 mb-1">
+          <span className="badge badge-ghost uppercase">{taskType}</span>
+          <span className="badge badge-outline uppercase">{day}</span>
         </div>
         {/* TIME */}
         {time !== undefined && (

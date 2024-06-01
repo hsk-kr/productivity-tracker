@@ -12,7 +12,6 @@ export interface Task {
 }
 
 export type Day =
-  | 'ONCE'
   | 'DAILY'
   | 'MONDAY'
   | 'TUESDAY'

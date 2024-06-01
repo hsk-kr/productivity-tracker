@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import AppLayout from '../../components/AppLayout';
+import TaskManagement from '../../components/TaskManagement';
 
 export default function TaskPage() {
   return (
@@ -7,7 +8,7 @@ export default function TaskPage() {
       <Head>
         <title>Productivity Tracker - Task</title>
       </Head>
-      <div>Task</div>
+      <TaskManagement />
     </AppLayout>
   );
 }

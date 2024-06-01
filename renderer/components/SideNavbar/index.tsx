@@ -6,19 +6,19 @@ import { IoMdSettings } from 'react-icons/io';
 const links = [
   {
     icon: <FaHome />,
-    href: '/app/home',
+    href: '/main/home',
   },
   {
     icon: <FaTasks />,
-    href: '/app/task',
+    href: '/main/task',
   },
   {
     icon: <FaHistory />,
-    href: '/app/history',
+    href: '/main/history',
   },
   {
     icon: <IoMdSettings />,
-    href: '/app/setting',
+    href: '/main/setting',
   },
 ];
 
@@ -30,11 +30,12 @@ const SideNavbar = () => {
       <ul>
         {links.map((link) => {
           const isActive = pathname.startsWith(link.href);
-          let className =
-            'p-2 hover:text-white hover:scale-110 transition-all cursor-pointer';
+          let className = 'p-2 transition-all cursor-pointer';
 
           if (isActive) {
-            className += ' border-l-white border-l-2 text-white';
+            className += ' border-l-white border-l-2 text-white hover:none';
+          } else {
+            className += ' hover:text-white hover:scale-110';
           }
 
           return (

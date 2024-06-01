@@ -9,7 +9,7 @@ export default function HomePage() {
       </Head>
       <div className="flex flex-col p-8 text-lg gap-8">
         <Link href="/signin">SignIn Page</Link>
-        <Link href="/app/home">Home Page</Link>
+        <Link href="/main/home">Home Page</Link>
       </div>
     </>
   );
