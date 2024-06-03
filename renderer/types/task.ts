@@ -3,11 +3,12 @@ export interface Task {
   taskName: string;
   taskDesc: string;
   taskType: TaskType;
+  taskMeasureType: TaskMeasureType;
   data?: string;
   day: Day;
   date: string;
   time?: number;
-  spentTime: number;
+  spentTime?: number;
   done: boolean;
 }
 
@@ -22,3 +23,5 @@ export type Day =
   | 'SUNDAY';
 
 export type TaskType = 'web' | 'app' | 'custom';
+
+export type TaskMeasureType = 'TIME' | 'MANUAL';

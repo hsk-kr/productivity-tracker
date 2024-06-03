@@ -1,8 +1,15 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Day, Task } from '../../types/task';
 import TaskCardList from '../TaskCardList';
+import TaskModal, { TaskModalProps } from '../TaskModal';
+
+type TaskModalInfo = { visible: boolean; taskId?: string; day?: Day };
 
 const TaskManagement = () => {
+  const [taskModalInfo, setTaskModalInfo] = useState<TaskModalInfo>({
+    visible: false,
+  });
+
   let tasks: Task[] = [
     {
       id: 'a',
@@ -11,6 +18,7 @@ const TaskManagement = () => {
       taskType: 'web',
       data: 'leetcode.com',
       date: '2024-05-28',
+      taskMeasureType: 'TIME',
       time: 30,
       spentTime: 0,
       day: 'DAILY',
@@ -23,6 +31,7 @@ const TaskManagement = () => {
       taskType: 'web',
       data: 'linkedin.com',
       date: '2024-05-28',
+      taskMeasureType: 'TIME',
       time: 300,
       spentTime: 150,
       day: 'FRIDAY',
@@ -35,6 +44,7 @@ const TaskManagement = () => {
       taskType: 'custom',
       date: '2024-05-28',
       day: 'DAILY',
+      taskMeasureType: 'MANUAL',
       spentTime: 0,
       done: true,
     },
@@ -46,6 +56,7 @@ const TaskManagement = () => {
       taskType: 'custom',
       date: '2024-05-28',
       day: 'DAILY',
+      taskMeasureType: 'MANUAL',
       spentTime: 0,
       done: false,
     },
@@ -56,6 +67,12 @@ const TaskManagement = () => {
       id: `${task.id}${taskIdx}`,
     }))
   );
+
+  const closeTaskModal = () => {
+    setTaskModalInfo({
+      visible: false,
+    });
+  };
 
   const taskCardList = useMemo(() => {
     const nodes = [];
@@ -78,6 +95,21 @@ const TaskManagement = () => {
       return map;
     }, new Map<Day, Task[]>());
 
+    const openCreateTaskModal = (day: Day) => () => {
+      setTaskModalInfo({
+        day,
+        visible: true,
+      });
+    };
+
+    const openUpdateTaskModal = (day: Day) => (taskId: string) => {
+      setTaskModalInfo({
+        day,
+        taskId,
+        visible: true,
+      });
+    };
+
     for (const day of dayOrder) {
       nodes.push(
         <div className="flex flex-col gap-4 h-fit">
@@ -85,8 +117,12 @@ const TaskManagement = () => {
           <TaskCardList
             key={day.toString()}
             tasks={tasksPerDay.get(day) ?? []}
+            onTaskEdit={openUpdateTaskModal(day)}
           />
-          <button className="btn btn-accent btn-outline uppercase">
+          <button
+            className="btn btn-accent btn-outline uppercase"
+            onClick={openCreateTaskModal(day)}
+          >
             Add a task
           </button>
         </div>
@@ -100,17 +136,11 @@ const TaskManagement = () => {
     <div className="w-full h-full overflow-auto flex gap-8 pr-8 pb-8">
       {/* <TaskManagementGuide /> */}
       {taskCardList}
-    </div>
-  );
-};
-
-const TaskManagementGuide = () => {
-  return (
-    <div className="bg-accent">
-      <span>How To</span>
-      <ul>
-        <li>1. Click the button "Add A TASK"</li>
-      </ul>
+      <TaskModal
+        taskId={taskModalInfo.taskId}
+        visible={taskModalInfo.visible}
+        onClose={closeTaskModal}
+      />
     </div>
   );
 };

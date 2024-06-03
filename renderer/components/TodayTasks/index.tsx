@@ -4,7 +4,8 @@ import { FaCheck } from 'react-icons/fa';
 interface TodayTaskProps {
   taskName: string;
   taskDesc: string;
-  taskType: string;
+  taskType: Task['taskType'];
+  taskMeasureType: Task['taskMeasureType'];
   time?: number;
   spentTime: number;
   day: string;
@@ -20,6 +21,7 @@ const TodayTasks = () => {
       taskType: 'web',
       data: 'leetcode.com',
       date: '2024-05-28',
+      taskMeasureType: 'TIME',
       time: 30,
       spentTime: 0,
       day: 'DAILY',
@@ -32,6 +34,7 @@ const TodayTasks = () => {
       taskType: 'web',
       data: 'linkedin.com',
       date: '2024-05-28',
+      taskMeasureType: 'TIME',
       time: 300,
       spentTime: 150,
       day: 'DAILY',
@@ -44,6 +47,7 @@ const TodayTasks = () => {
       taskType: 'custom',
       date: '2024-05-28',
       day: 'DAILY',
+      taskMeasureType: 'MANUAL',
       spentTime: 0,
       done: true,
     },
@@ -55,6 +59,7 @@ const TodayTasks = () => {
       taskType: 'custom',
       date: '2024-05-28',
       day: 'DAILY',
+      taskMeasureType: 'MANUAL',
       spentTime: 0,
       done: false,
     },
@@ -80,6 +85,7 @@ const TodayTasks = () => {
             taskName={task.taskName}
             taskDesc={task.taskDesc}
             taskType={task.taskType}
+            taskMeasureType={task.taskMeasureType}
             time={task.time}
             spentTime={task.spentTime}
             day={task.day}
@@ -95,6 +101,7 @@ const TodayTask = ({
   taskName,
   taskDesc,
   taskType,
+  taskMeasureType,
   time,
   spentTime,
   day,
@@ -114,7 +121,7 @@ const TodayTask = ({
           <span className="badge badge-outline uppercase">{day}</span>
         </div>
         {/* TIME */}
-        {time !== undefined && (
+        {taskMeasureType === 'TIME' && (
           <div className="flex flex-col gap-1 items-center">
             <progress
               className="progress progress-success w-full"
@@ -125,7 +132,7 @@ const TodayTask = ({
           </div>
         )}
         {/* ONCE */}
-        {time === undefined && (
+        {taskMeasureType === 'MANUAL' && (
           <div className="flex justify-center">
             <button
               className={`btn btn-sm w-full ${done ? 'btn-success' : ''}`}
