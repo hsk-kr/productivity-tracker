@@ -12,6 +12,18 @@ export interface Task {
   done: boolean;
 }
 
+export interface TaskHistory {
+  id: string;
+  taskName: string;
+  taskDesc: string;
+  taskType: TaskType;
+  taskMeasureType: TaskMeasureType;
+  data?: string;
+  day: string;
+  time?: number;
+  completedAt: string;
+}
+
 export type Day =
   | 'DAILY'
   | 'MONDAY'
